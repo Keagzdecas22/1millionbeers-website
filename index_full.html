@@ -1,0 +1,492 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>1 Million Beers — Track Beers. Challenge Mates.</title>
+  <meta name="description" content="1 Million Beers is the social beer-tracking app for South Africa. Log beers, join groups, climb leaderboards and challenge your mates. 18+ only." />
+
+  <!-- Open Graph — controls how the link looks when shared on WhatsApp, Facebook, iMessage -->
+  <meta property="og:title" content="1 Million Beers" />
+  <meta property="og:description" content="Track beers. Challenge mates. Climb the leaderboard. Download the app now." />
+  <meta property="og:image" content="https://1millionbeersapp.com/og-image.png" />
+  <meta property="og:url" content="https://1millionbeersapp.com" />
+  <meta property="og:type" content="website" />
+
+  <!-- Twitter / X card -->
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:title" content="1 Million Beers" />
+  <meta name="twitter:description" content="Track beers. Challenge mates. Download on Google Play." />
+  <meta name="twitter:image" content="https://1millionbeersapp.com/og-image.png" />
+
+  <link rel="icon" href="icon.png" />
+
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --bg:       #0f0f1e;
+      --card:     #1a1a2e;
+      --border:   #2a2a45;
+      --amber:    #ffb300;
+      --amber2:   #ffd54f;
+      --sub:      #9090b0;
+      --text:     #e0e0f0;
+      --muted:    #c0c0d8;
+    }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      line-height: 1.6;
+      overflow-x: hidden;
+    }
+
+    a { color: var(--amber); text-decoration: none; }
+
+    /* ── NAV ── */
+    nav {
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      background: rgba(15,15,30,0.92);
+      backdrop-filter: blur(12px);
+      border-bottom: 1px solid var(--border);
+      padding: 14px 24px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+    .nav-brand {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      font-weight: 800;
+      font-size: 1.1rem;
+      color: var(--text);
+    }
+    .nav-brand img {
+      width: 32px;
+      height: 32px;
+      border-radius: 8px;
+    }
+    .nav-links {
+      display: flex;
+      gap: 24px;
+      font-size: 0.875rem;
+      color: var(--sub);
+    }
+    .nav-links a:hover { color: var(--amber); }
+
+    /* ── HERO ── */
+    .hero {
+      text-align: center;
+      padding: 80px 24px 60px;
+      position: relative;
+    }
+    .hero-glow {
+      position: absolute;
+      top: 0; left: 50%;
+      transform: translateX(-50%);
+      width: 600px;
+      height: 400px;
+      background: radial-gradient(ellipse at center, rgba(255,179,0,0.12) 0%, transparent 70%);
+      pointer-events: none;
+    }
+    .hero-icon {
+      width: 100px;
+      height: 100px;
+      border-radius: 24px;
+      margin: 0 auto 28px;
+      box-shadow: 0 0 40px rgba(255,179,0,0.3);
+      display: block;
+    }
+    .hero h1 {
+      font-size: clamp(2.2rem, 6vw, 3.6rem);
+      font-weight: 900;
+      line-height: 1.5;
+      margin-bottom: 25px;
+      background: linear-gradient(135deg, #ffb300 0%, #ffd54f 50%, #ffffff 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+    .hero p {
+      font-size: clamp(1rem, 2.5vw, 1.2rem);
+      color: var(--muted);
+      max-width: 520px;
+      margin: 0 auto 40px;
+    }
+
+    /* ── DOWNLOAD BUTTONS ── */
+    .download-row {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 16px;
+      margin-bottom: 16px;
+    }
+    .btn-store {
+      display: inline-flex;
+      align-items: center;
+      gap: 12px;
+      padding: 14px 24px;
+      border-radius: 14px;
+      font-weight: 700;
+      font-size: 0.95rem;
+      transition: transform 0.15s, box-shadow 0.15s;
+      cursor: pointer;
+      border: none;
+      text-decoration: none;
+    }
+    .btn-store:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 8px 24px rgba(0,0,0,0.4);
+    }
+    .btn-store svg { flex-shrink: 0; }
+
+    .btn-play {
+      background: var(--amber);
+      color: #000;
+    }
+    .btn-apple {
+      background: var(--card);
+      color: var(--text);
+      border: 1px solid var(--border);
+    }
+    .btn-apple .coming-soon {
+      font-size: 0.72rem;
+      font-weight: 500;
+      color: var(--sub);
+      display: block;
+      line-height: 1;
+      margin-top: 1px;
+    }
+
+    .age-badge {
+      display: inline-block;
+      margin-top: 12px;
+      background: rgba(255,179,0,0.1);
+      border: 1px solid rgba(255,179,0,0.3);
+      color: var(--amber);
+      font-size: 0.8rem;
+      font-weight: 600;
+      padding: 5px 14px;
+      border-radius: 20px;
+    }
+
+    /* ── FEATURES ── */
+    .section {
+      padding: 72px 24px;
+    }
+    .section-title {
+      text-align: center;
+      font-size: clamp(1.5rem, 4vw, 2rem);
+      font-weight: 800;
+      margin-bottom: 48px;
+      color: var(--text);
+    }
+    .section-title span { color: var(--amber); }
+
+    .features {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+      gap: 20px;
+      max-width: 900px;
+      margin: 0 auto;
+    }
+    .feature-card {
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: 16px;
+      padding: 28px 24px;
+      transition: border-color 0.2s, transform 0.2s;
+    }
+    .feature-card:hover {
+      border-color: rgba(255,179,0,0.4);
+      transform: translateY(-3px);
+    }
+    .feature-icon {
+      font-size: 2rem;
+      margin-bottom: 14px;
+      display: block;
+    }
+    .feature-card h3 {
+      font-size: 1rem;
+      font-weight: 700;
+      color: var(--text);
+      margin-bottom: 8px;
+    }
+    .feature-card p {
+      font-size: 0.875rem;
+      color: var(--sub);
+      line-height: 1.6;
+    }
+
+    /* ── HOW IT WORKS ── */
+    .how-bg {
+      background: var(--card);
+      border-top: 1px solid var(--border);
+      border-bottom: 1px solid var(--border);
+    }
+    .steps {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      gap: 32px;
+      max-width: 860px;
+      margin: 0 auto;
+      text-align: center;
+    }
+    .step-num {
+      width: 48px;
+      height: 48px;
+      border-radius: 50%;
+      background: var(--amber);
+      color: #000;
+      font-weight: 900;
+      font-size: 1.2rem;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin: 0 auto 16px;
+    }
+    .step h3 {
+      font-size: 0.95rem;
+      font-weight: 700;
+      color: var(--text);
+      margin-bottom: 8px;
+    }
+    .step p {
+      font-size: 0.85rem;
+      color: var(--sub);
+    }
+
+    /* ── CTA ── */
+    .cta {
+      text-align: center;
+      padding: 80px 24px;
+    }
+    .cta h2 {
+      font-size: clamp(1.6rem, 4vw, 2.4rem);
+      font-weight: 900;
+      margin-bottom: 16px;
+    }
+    .cta p {
+      color: var(--muted);
+      margin-bottom: 36px;
+      font-size: 1rem;
+    }
+
+    /* ── FOOTER ── */
+    footer {
+      background: var(--card);
+      border-top: 1px solid var(--border);
+      padding: 32px 24px;
+      text-align: center;
+    }
+    .footer-links {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 24px;
+      margin-bottom: 16px;
+      font-size: 0.875rem;
+    }
+    .footer-links a { color: var(--sub); }
+    .footer-links a:hover { color: var(--amber); }
+    .footer-copy {
+      color: var(--sub);
+      font-size: 0.8rem;
+    }
+
+    /* ── RESPONSIVE ── */
+    @media (max-width: 480px) {
+      .nav-links { display: none; }
+      .btn-store { width: 100%; justify-content: center; }
+      .download-row { flex-direction: column; align-items: center; }
+    }
+  </style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+  <div class="nav-brand">
+    <img src="icon.png" alt="1 Million Beers" onerror="this.style.display='none'" />
+    1 Million Beers
+  </div>
+  <div class="nav-links">
+    <a href="#features">Features</a>
+    <a href="#how">How it works</a>
+    <a href="#download">Download</a>
+    <a href="mailto:support@1millionbeersapp.com">Contact</a>
+  </div>
+</nav>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="hero-glow"></div>
+  <img src="icon.png" alt="1 Million Beers App Icon" class="hero-icon"
+       onerror="this.style.background='#ffb300';this.style.display='block'" />
+
+  <h1>Track Beers.<br />Challenge Mates.</h1>
+  <p>
+    The social beer-tracking app built for South Africa.
+    Log every beer with a photo, join groups, climb the leaderboard
+    and race your mates to 1 million beers.
+  </p>
+
+  <div class="download-row" id="download">
+
+    <!-- Google Play -->
+    <a class="btn-store btn-play"
+       href="https://play.google.com/store/apps/details?id=com.million.beers.android"
+       target="_blank" rel="noopener">
+      <!-- Google Play icon -->
+      <svg width="24" height="24" viewBox="0 0 24 24" fill="currentColor">
+        <path d="M3.18 23.76c.3.17.64.24.99.2L15.54 12 3.18.04a1.5 1.5 0 0 0-.99.2C1.88.56 1.5 1.17 1.5 1.9v20.2c0 .73.38 1.34.99 1.66z"/>
+        <path d="m13.9 13.4-2.6 2.6-7.36 4.24L13.9 13.4zM20.1 10.5c.56.32.9.9.9 1.5s-.34 1.18-.9 1.5l-2.4 1.38-2.76-2.76 2.76-2.76 2.4 1.14zM4.66 4.76 13.9 10.6l-2.6 2.6-7.12-8.1.48-.34z"/>
+      </svg>
+      <div>
+        <span style="font-size:0.72rem;display:block;line-height:1;margin-bottom:2px;font-weight:500;">Get it on</span>
+        Google Play
+      </div>
+    </a>
+
+    <!-- App Store (coming soon) -->
+    <a class="btn-store btn-apple" href="#" onclick="return false;" aria-disabled="true">
+      <!-- Apple icon -->
+      <svg width="22" height="22" viewBox="0 0 24 24" fill="currentColor">
+        <path d="M18.71 19.5c-.83 1.24-1.71 2.45-3.05 2.47-1.34.03-1.77-.79-3.29-.79-1.53 0-2 .77-3.27.82-1.31.05-2.3-1.32-3.14-2.53C4.25 17 2.94 12.45 4.7 9.39c.87-1.52 2.43-2.48 4.12-2.51 1.28-.02 2.5.87 3.29.87.78 0 2.26-1.07 3.8-.91.65.03 2.47.26 3.64 1.98-.09.06-2.17 1.28-2.15 3.81.03 3.02 2.65 4.03 2.68 4.04-.03.07-.42 1.44-1.38 2.83M13 3.5c.73-.83 1.94-1.46 2.94-1.5.13 1.17-.34 2.35-1.04 3.19-.69.85-1.83 1.51-2.95 1.42-.15-1.15.41-2.35 1.05-3.11z"/>
+      </svg>
+      <div>
+        <span style="font-size:0.72rem;display:block;line-height:1;margin-bottom:2px;font-weight:500;">Download on the</span>
+        App Store
+        <span class="coming-soon">Coming soon</span>
+      </div>
+    </a>
+
+  </div>
+
+  <div class="age-badge">🍺 18+ only · Please drink responsibly</div>
+</section>
+
+<!-- FEATURES -->
+<section class="section" id="features">
+  <h2 class="section-title">Everything you need to <span>track the journey</span></h2>
+  <div class="features">
+
+    <div class="feature-card">
+      <span class="feature-icon">📸</span>
+      <h3>Photo-verified logging</h3>
+      <p>Every beer counts — but you have to prove it. Snap a photo, submit, and let the leaderboard do the rest.</p>
+    </div>
+
+    <div class="feature-card">
+      <span class="feature-icon">🏆</span>
+      <h3>Group leaderboards</h3>
+      <p>Create or join groups with your mates, track everyone's total and see who's leading the charge in real time.</p>
+    </div>
+
+    <div class="feature-card">
+      <span class="feature-icon">📰</span>
+      <h3>Activity feed</h3>
+      <p>See every beer your group logs, like their posts and keep the competition alive between sessions.</p>
+    </div>
+
+    <div class="feature-card">
+      <span class="feature-icon">🎖️</span>
+      <h3>Achievements</h3>
+      <p>Unlock badges as you hit milestones. First beer, 10 beers, 100 beers — there's always a next goal.</p>
+    </div>
+
+    <div class="feature-card">
+      <span class="feature-icon">🔔</span>
+      <h3>Push notifications</h3>
+      <p>Get notified when a mate logs a beer so you can jump back in and close the gap.</p>
+    </div>
+
+    <div class="feature-card">
+      <span class="feature-icon">🔗</span>
+      <h3>Easy group invites</h3>
+      <p>Share a code or QR via WhatsApp in seconds. Getting your whole crew in takes less than a minute.</p>
+    </div>
+
+  </div>
+</section>
+
+<!-- HOW IT WORKS -->
+<section class="section how-bg" id="how">
+  <h2 class="section-title">How it <span>works</span></h2>
+  <div class="steps">
+
+    <div class="step">
+      <div class="step-num">1</div>
+      <h3>Download & register</h3>
+      <p>Create your account in under a minute. 18+ age verification required.</p>
+    </div>
+
+    <div class="step">
+      <div class="step-num">2</div>
+      <h3>Create or join a group</h3>
+      <p>Start a group with your mates or join one with an invite code or QR scan.</p>
+    </div>
+
+    <div class="step">
+      <div class="step-num">3</div>
+      <h3>Log every beer</h3>
+      <p>Take a photo of your beer, add an optional caption and submit. It goes live on the feed once approved.</p>
+    </div>
+
+    <div class="step">
+      <div class="step-num">4</div>
+      <h3>Climb the leaderboard</h3>
+      <p>Watch your total grow, earn achievements and keep the competition going.</p>
+    </div>
+
+  </div>
+</section>
+
+<!-- CTA -->
+<section class="cta">
+  <h2>Ready to start counting? 🍺</h2>
+  <p>Download the app, invite your mates and may the best drinker win.</p>
+  <div class="download-row">
+    <a class="btn-store btn-play"
+       href="https://play.google.com/store/apps/details?id=com.million.beers.android"
+       target="_blank" rel="noopener">
+      <svg width="22" height="22" viewBox="0 0 24 24" fill="currentColor">
+        <path d="M3.18 23.76c.3.17.64.24.99.2L15.54 12 3.18.04a1.5 1.5 0 0 0-.99.2C1.88.56 1.5 1.17 1.5 1.9v20.2c0 .73.38 1.34.99 1.66z"/>
+        <path d="m13.9 13.4-2.6 2.6-7.36 4.24L13.9 13.4zM20.1 10.5c.56.32.9.9.9 1.5s-.34 1.18-.9 1.5l-2.4 1.38-2.76-2.76 2.76-2.76 2.4 1.14zM4.66 4.76 13.9 10.6l-2.6 2.6-7.12-8.1.48-.34z"/>
+      </svg>
+      <div>
+        <span style="font-size:0.72rem;display:block;line-height:1;margin-bottom:2px;font-weight:500;">Get it on</span>
+        Google Play
+      </div>
+    </a>
+  </div>
+  <p style="margin-top:16px;font-size:0.8rem;color:var(--sub);">
+    iOS coming soon &nbsp;·&nbsp; 18+ only &nbsp;·&nbsp; South Africa
+  </p>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="footer-links">
+    <a href="/privacy.html">Privacy Policy</a>
+    <a href="/terms.html">Terms of Service</a>
+    <a href="mailto:support@1millionbeersapp.com">Support</a>
+    <a href="mailto:abuse@1millionbeersapp.com">Report Abuse</a>
+  </div>
+  <p class="footer-copy">
+    &copy; 2026 KDC Holdings (Pty) Ltd t/a 1 Million Beers &nbsp;·&nbsp;
+    Registered in South Africa &nbsp;·&nbsp;
+    18+ only. Please drink responsibly.
+  </p>
+</footer>
+
+</body>
+</html>
